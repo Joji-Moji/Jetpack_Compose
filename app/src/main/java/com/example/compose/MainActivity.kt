@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Column {
+            Row {
                 Text(text = "hi man!!")
                 Text(text = "hi man!!")
                 Text(text = "hi man!!")
