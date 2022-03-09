@@ -14,6 +14,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -54,13 +56,14 @@ class MainActivity : ComponentActivity() {
 }
 @Composable
 private fun ListItem(name: String,prof: String){
+    var counter = remember{
+        mutableStateOf(0)
+    }
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .pointerInput(Unit){
-                detectDragGesturesAfterLongPress { change, dragAmount ->
-                    Log.d("MyLog","LONG")
-                }
+            .clickable {
+                counter.value++
             }
             .padding(10.dp),
         shape = RoundedCornerShape(15.dp),
@@ -78,7 +81,7 @@ private fun ListItem(name: String,prof: String){
                     .clip(CircleShape)
                 )
             Column(modifier = Modifier.padding(start = 15.dp)) {
-                Text(text = name)
+                Text(text =counter.value.toString())
                 Text(text = prof)
             }
         }
