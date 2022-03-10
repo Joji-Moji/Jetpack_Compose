@@ -21,12 +21,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.compose.ui.theme.ComposeTheme
+import org.jetbrains.annotations.NotNull
+import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,20 +37,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
              ListItem(name = "yea", prof ="p" )
-             ListItem(name = "star", prof ="fin" )
-             ListItem(name = "star", prof ="fin" )
-             ListItem(name = "star", prof ="fin" )
-             ListItem(name = "star", prof ="fin" )
-             ListItem(name = "star", prof ="fin" )
-             ListItem(name = "star", prof ="fin" )
-             ListItem(name = "sd", prof ="sd" )
-             ListItem(name = "sd", prof ="sd" )
-             ListItem(name = "sd", prof ="sd" )
-             ListItem(name = "sd", prof ="sd" )
-             ListItem(name = "sd", prof ="sd" )
-             ListItem(name = "sd", prof ="sd" )
-             ListItem(name = "sd", prof ="sd" )
-             ListItem(name = "sd", prof ="sd" )
 
             }
 
@@ -59,13 +48,18 @@ private fun ListItem(name: String,prof: String){
     var counter = remember{
         mutableStateOf(0)
     }
+
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                counter.value++
+                if (counter.value < 10) counter.value++
+                else if (counter.value == 10)  counter.value = 0
             }
+            .background(Color.Red)
             .padding(10.dp),
+        
         shape = RoundedCornerShape(15.dp),
         elevation = 5.dp
     ) {
@@ -81,10 +75,16 @@ private fun ListItem(name: String,prof: String){
                     .clip(CircleShape)
                 )
             Column(modifier = Modifier.padding(start = 15.dp)) {
-                Text(text =counter.value.toString())
+                Text(text = counter.value.toString())
                 Text(text = prof)
             }
         }
     }
     }
 }
+
+
+
+
+
+
