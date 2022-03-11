@@ -25,8 +25,10 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.compose.ui.theme.ComposeTheme
 import org.jetbrains.annotations.NotNull
 import kotlin.random.Random
@@ -35,53 +37,38 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-             ListItem(name = "yea", prof ="p" )
-
-            }
-
-            }
-    }
-}
-@Composable
-private fun ListItem(name: String,prof: String){
-    var counter = remember{
-        mutableStateOf(0)
-    }
-
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable {
-                if (counter.value < 10) counter.value++
-                else if (counter.value == 10)  counter.value = 0
-            }
-            .background(Color.Red)
-            .padding(10.dp),
-        
-        shape = RoundedCornerShape(15.dp),
-        elevation = 5.dp
-    ) {
-    Box(){
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Image(
-                painter = painterResource(id = R.drawable.image),
-                contentDescription = "image",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .padding(5.dp)
-                    .size(64.dp)
-                    .clip(CircleShape)
-                )
-            Column(modifier = Modifier.padding(start = 15.dp)) {
-                Text(text = counter.value.toString())
-                Text(text = prof)
+            Box(modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center) {
+                CircleItem()
             }
         }
     }
-    }
 }
+@Composable
+private fun CircleItem(){
+    val counter = remember {
+        mutableStateOf(0)
+    }
+    val color = remember{
+            mutableStateOf(Color.Cyan)
+    }
+    Box(modifier = Modifier
+        .size(100.dp)
+        .background(color = color.value, shape = CircleShape)
+        .clickable {
+         when(counter.value++){
+             10 -> counter.value = 0
+             9 -> color.value = Color.Black
+
+
+         }
+        },
+        contentAlignment = Alignment.Center){
+        Text(text = counter.value.toString(), style = TextStyle(color = Color.White, fontSize = 25.sp))
+    }
+
+}
+
 
 
 
